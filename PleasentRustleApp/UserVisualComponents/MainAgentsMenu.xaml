@@ -26,54 +26,57 @@
         </StackPanel>
         
         <ScrollViewer Grid.Row="2">
-            <ItemsControl x:Name="IControl">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="10"
+            <Grid>
+                <TextBlock x:Name="SearchNoResults"
+                           Visibility="Collapsed"
+                           Text="Поиск не дал результатов :("
+                           Margin="20"/>
+                <ItemsControl x:Name="IControl">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10"
                               MaxHeight="200"
                               VerticalAlignment="Top">
-                            <TextBlock x:Name="SearchNoResults"
-                                       Visibility="Collapsed"
-                                       Text="Поиск не дал результатов :("/>
-                            <Border BorderBrush="#46B29D" 
+                                <Border BorderBrush="#46B29D" 
                                 BorderThickness="2">
-                                <StackPanel Orientation="Horizontal" Background="#C6D7FF">
-                                    
-                                    <Image Source="{Binding Photo.Image}"
+                                    <StackPanel Orientation="Horizontal" Background="#C6D7FF">
+
+                                        <Image Source="{Binding Photo.Image}"
                                        Height="100"
                                        Width="100"
                                        VerticalAlignment="Center"
                                            Margin="10"/>
-                                    
-                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                        <TextBlock>
+
+                                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                            <TextBlock>
                                         <Run Text="{Binding AgentType.Title}"/>
                                         <Run Text=" | "/>
                                         <Run Text="{Binding Title}"/>
-                                        </TextBlock>
-                                        <TextBlock>
+                                            </TextBlock>
+                                            <TextBlock>
                                                 <Run Text="продаж за год"/>
-                                        </TextBlock>
-                                        <TextBlock>
+                                            </TextBlock>
+                                            <TextBlock>
                                             <Run Text="Телефон: "/>
                                             <Run Text="{Binding Phone}"/>
-                                        </TextBlock>
-                                        <TextBlock>
+                                            </TextBlock>
+                                            <TextBlock>
                                             <Run Text="Приоритетность: "/>
-                                        </TextBlock>
+                                            </TextBlock>
+                                        </StackPanel>
+
                                     </StackPanel>
-                                    
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid x:Name="CardsGrid" Columns="1"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid x:Name="CardsGrid" Columns="1"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>            
         </ScrollViewer>        
     </Grid>
 </Window>

@@ -119,10 +119,6 @@
     <Compile Include="Entities\sysdiagrams.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
-    <Page Include="UserVisualComponents\AgentWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserVisualComponents\MainAgentsMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,9 +136,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Db.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="UserVisualComponents\AgentWindow.xaml.cs">
-      <DependentUpon>AgentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserVisualComponents\MainAgentsMenu.xaml.cs">
       <DependentUpon>MainAgentsMenu.xaml</DependentUpon>

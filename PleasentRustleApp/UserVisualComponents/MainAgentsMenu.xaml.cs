@@ -37,7 +37,7 @@ namespace PleasentRustleApp.UserVisualComponents
 
             if (DataSource.Count() == 0)
             {
-                SearchNoResults.text
+                SearchNoResults.Visibility = Visibility.Visible;
             }
         }
 
