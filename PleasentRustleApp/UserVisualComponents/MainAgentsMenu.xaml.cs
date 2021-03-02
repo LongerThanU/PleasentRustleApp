@@ -39,11 +39,26 @@ namespace PleasentRustleApp.UserVisualComponents
             {
                 SearchNoResults.Visibility = Visibility.Visible;
             }
+
+            //if ()
+            //{
+
+            //}
+
+
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Update();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AzFilter.IsChecked == true)
+            {
+
+            }
         }
     }
 }
