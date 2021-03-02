@@ -33,19 +33,18 @@ namespace PleasentRustleApp.UserVisualComponents
             DbClass.DbConnection(out LonGerEntities db);
             string SearchSource = SearchBox.Text;
             var DataSource = SearchSource == "" ? db.Agent : db.Agent.Where(x => x.Title.StartsWith(SearchSource));
-            IControl.ItemsSource = DataSource.ToList();
 
             if (DataSource.Count() == 0)
-            {
                 SearchNoResults.Visibility = Visibility.Visible;
-            }
 
-            //if ()
-            //{
+            if (SortBox.SelectedItem.ToString() == "А-я")
+                DataSource = DataSource.OrderBy(x => x.Title);
 
-            //}
+            if (SortBox.SelectedItem.ToString() == "Я-а")
+                DataSource = DataSource.OrderByDescending(x => x.Title);
 
 
+            IControl.ItemsSource = DataSource.ToList();
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -55,10 +54,7 @@ namespace PleasentRustleApp.UserVisualComponents
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (AzFilter.IsChecked == true)
-            {
 
-            }
         }
     }
 }
