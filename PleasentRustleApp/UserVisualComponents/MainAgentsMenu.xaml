@@ -24,7 +24,7 @@
             <TextBlock Text="Сортировка:" VerticalAlignment="Center"/>
             <ComboBox Name="SortBox" VerticalAlignment="Center" Width="128" Height="30" Margin="2,0,10,0" 
                       SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBoxItem Name="NoFilter" Content="Без фильтра" IsSelected="True"/>
+                <ComboBoxItem Name="NoFilter" Content="Без фильтра"/>
                 <Separator/>
                 <TextBlock Text="По имени"/>
                 <ComboBoxItem x:Name="AzFilter" Content="А-я"/>

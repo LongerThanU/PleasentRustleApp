@@ -36,12 +36,13 @@ namespace PleasentRustleApp.UserVisualComponents
 
             if (DataSource.Count() == 0)
                 SearchNoResults.Visibility = Visibility.Visible;
-
-            if (SortBox.SelectedItem.ToString() == "А-я")
-                DataSource = DataSource.OrderBy(x => x.Title);
-
-            if (SortBox.SelectedItem.ToString() == "Я-а")
-                DataSource = DataSource.OrderByDescending(x => x.Title);
+            if (SortBox.SelectedItem != null)
+            {
+                if (SortBox.SelectedIndex == 3)
+                    DataSource = DataSource.OrderBy(x => x.Title);
+                if (SortBox.SelectedIndex == 4)
+                    DataSource = DataSource.OrderByDescending(x => x.Title);
+            }
 
 
             IControl.ItemsSource = DataSource.ToList();
@@ -54,7 +55,7 @@ namespace PleasentRustleApp.UserVisualComponents
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Update();
         }
     }
 }
