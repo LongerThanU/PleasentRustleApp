@@ -22,9 +22,22 @@ namespace PleasentRustleApp.UserVisualComponents
     /// </summary>
     public partial class MainAgentsMenu : Window
     {
+        public string SelectedFilter { get; set; } = "Без фильтра";
+
+        public List<string> Filters = new List<string>
+        {
+            "Без сортировки",
+            "Имя агента по алфавиту",
+            "Имя агента по алфавиту с конца",
+            "Тип агента по алфавиту",
+            "Тип агента по алфавиту с конца"
+        };
+
         public MainAgentsMenu()
         {
             InitializeComponent();
+            DataContext = this;
+            SortBox.ItemsSource = Filters;
             Update();
         }
 
@@ -36,20 +49,36 @@ namespace PleasentRustleApp.UserVisualComponents
 
             if (DataSource.Count() == 0)
                 SearchNoResults.Visibility = Visibility.Visible;
-            if (SortBox.SelectedItem != null)
+
+            if (SearchBox.Text != "")
             {
-                if (SortBox.SelectedIndex == 3)
-                    DataSource = DataSource.OrderBy(x => x.Title);
-                if (SortBox.SelectedIndex == 4)
-                    DataSource = DataSource.OrderByDescending(x => x.Title);
+                SearchText.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SearchText.Visibility = Visibility.Visible;
             }
 
+            if (SortBox.SelectedItem != null)
+            {
+                if (SortBox.SelectedItem.ToString() == "Имя агента по алфавиту")
+                    DataSource = DataSource.OrderBy(x => x.Title);
+
+                if (SortBox.SelectedItem.ToString() == "Имя агента по алфавиту с конца")
+                    DataSource = DataSource.OrderByDescending(x => x.Title);
+
+                if (SortBox.SelectedItem.ToString() == "Тип агента по алфавиту")
+                    DataSource = DataSource.OrderBy(x => x.AgentType.Title);
+
+                if (SortBox.SelectedItem.ToString() == "Тип агента по алфавиту с конца")
+                    DataSource = DataSource.OrderByDescending(x => x.AgentType.Title);
+            }
 
             IControl.ItemsSource = DataSource.ToList();
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        {            
             Update();
         }
 
