@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PleasentRustleApp"
         mc:Ignorable="d"
-        Title="Приятный шелест" FontFamily="Monotype Corsiva" FontSize="16" MinHeight="585" MinWidth="700"
-        Height="585" Width="700">
+        Title="Приятный шелест" FontFamily="Monotype Corsiva" FontSize="16" MinHeight="585" MinWidth="760"
+        Height="585" Width="760">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="65"/>
@@ -14,26 +14,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Image Source="/Resources/Приятный шелест.png"/>
-            <TextBlock Text="Агенты" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="30"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="1">
-            <Grid Width="238" Height="30" Margin="0,0,10,0">
-                <TextBox x:Name="SearchBox" VerticalAlignment="Center" TextChanged="SearchBox_TextChanged"/>
-                <TextBlock x:Name="SearchText"
-                           Text="Поиск"
-                           Visibility="Visible"
-                           Margin="5"/>
-            </Grid>            
-            <TextBlock Text="Сортировка:" VerticalAlignment="Center"/>
-            <ComboBox Name="SortBox" Width="128" Height="30" Margin="2,0,10,0" 
-                      SelectionChanged="ComboBox_SelectionChanged" SelectedItem="{Binding SelectedFilter}"/>
+        <DockPanel Margin="10">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Image Source="/Resources/Приятный шелест.png"/>
+                <TextBlock Text="Агенты" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="30"/>
+            </StackPanel>
+            <Button x:Name="ExitBut" HorizontalAlignment="Right" Height="35" Width="60" Content="Выход" 
+                    Click="ExitBut_Click" DockPanel.Dock="Right"/>
+        </DockPanel>
 
-            <TextBlock Text="Фильтр:" VerticalAlignment="Center"/>
-            <ComboBox VerticalAlignment="Center" Width="128" Height="30" Margin="2,0,0,0">                
-            </ComboBox>
-        </StackPanel>
+        <DockPanel Margin="10" Grid.Row="1">
+            
+            <TextBox x:Name="SearchBox" VerticalAlignment="Center" TextChanged="SearchBox_TextChanged" 
+                         Width="238" Height="30" DockPanel.Dock="Left"/>
+            
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="10,0,0,0">
+                <TextBlock Text="Фильтр:" VerticalAlignment="Center"/>
+                <ComboBox Name="SortBox" Width="128" Height="30" Margin="10,0,10,0" 
+                      SelectionChanged="ComboBox_SelectionChanged" SelectedItem="{Binding SelectedFilter}"/>
+                <TextBlock Text="Сортировка по типу:" VerticalAlignment="Center"/>
+                <ComboBox VerticalAlignment="Center" Width="128" Height="30" Margin="2,0,0,0"/>
+            </StackPanel>
+            
+        </DockPanel>
         <ScrollViewer Grid.Row="2">
             <Grid>
                 <TextBlock x:Name="SearchNoResults"
@@ -48,33 +51,41 @@
                               VerticalAlignment="Top">
                                 <Border BorderBrush="#46B29D" 
                                 BorderThickness="2">
-                                    <StackPanel Orientation="Horizontal">
-
-                                        <Image Source="{Binding Photo.Image}"
+                                    <DockPanel>
+                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                            <Image Source="{Binding Photo.Image}"
                                        Height="100"
                                        Width="100"
                                        VerticalAlignment="Center"
                                            Margin="10"/>
-
-                                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                            <TextBlock>
+                                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                                <TextBlock>
                                         <Run Text="{Binding AgentType.Title}"/>
                                         <Run Text=" | "/>
                                         <Run Text="{Binding Title}"/>
-                                            </TextBlock>
-                                            <TextBlock>
+                                                </TextBlock>
+                                                <TextBlock>
+                                                <Run Text="{Binding SellsPerYear}"/>
                                                 <Run Text="продаж за год"/>
-                                            </TextBlock>
-                                            <TextBlock>
+                                                </TextBlock>
+                                                <TextBlock>
                                             <Run Text="Телефон: "/>
                                             <Run Text="{Binding Phone}"/>
-                                            </TextBlock>
-                                            <TextBlock>
+                                                </TextBlock>
+                                                <TextBlock>
                                             <Run Text="Приоритетность: "/>
-                                            </TextBlock>
+                                            <Run Text="{Binding  Priority}"/>
+                                                </TextBlock>
+                                            </StackPanel>
                                         </StackPanel>
 
-                                    </StackPanel>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   Width="100"
+                                                   Height="100">
+                                            <Run Text="Скидка :"/>
+                                            <Run Text="{Binding Discount}"/>
+                                        </TextBlock>                                        
+                                    </DockPanel>
                                 </Border>
                             </Grid>
                         </DataTemplate>
@@ -85,7 +96,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-            </Grid>            
-        </ScrollViewer>        
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

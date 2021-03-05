@@ -9,19 +9,42 @@ namespace PleasentRustleApp.Classes
 {
     class MessageBoxes
     {
-        public static void WarningMessage(string body, string title)
+        public static bool WarningMessage(string body, string title)
         {
-            MessageBox.Show(body, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBox.Show(body, title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
         }
 
-        public static void ExceptionMessage(string body, string title)
+        public static bool ExceptionMessage(string body, string title)
         {
-            MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Error);
+            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
-        public static void InfoMessage(string body, string title)
+        public static bool InfoMessage(string body, string title)
         {
-            MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }        
     }
 }

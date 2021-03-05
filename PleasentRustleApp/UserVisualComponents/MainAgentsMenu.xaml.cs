@@ -30,7 +30,9 @@ namespace PleasentRustleApp.UserVisualComponents
             "Имя агента по алфавиту",
             "Имя агента по алфавиту с конца",
             "Тип агента по алфавиту",
-            "Тип агента по алфавиту с конца"
+            "Тип агента по алфавиту с конца",
+            "По приоритету с начала",
+            "По приоритету с конца"
         };
 
         public MainAgentsMenu()
@@ -48,16 +50,7 @@ namespace PleasentRustleApp.UserVisualComponents
             var DataSource = SearchSource == "" ? db.Agent : db.Agent.Where(x => x.Title.StartsWith(SearchSource));
 
             if (DataSource.Count() == 0)
-                SearchNoResults.Visibility = Visibility.Visible;
-
-            if (SearchBox.Text != "")
-            {
-                SearchText.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                SearchText.Visibility = Visibility.Visible;
-            }
+                SearchNoResults.Visibility = Visibility.Visible;           
 
             if (SortBox.SelectedItem != null)
             {
@@ -72,6 +65,12 @@ namespace PleasentRustleApp.UserVisualComponents
 
                 if (SortBox.SelectedItem.ToString() == "Тип агента по алфавиту с конца")
                     DataSource = DataSource.OrderByDescending(x => x.AgentType.Title);
+
+                if (SortBox.SelectedItem.ToString() == "По приоритету с начала")
+                    DataSource = DataSource.OrderBy(x => x.Priority);
+
+                if (SortBox.SelectedItem.ToString() == "По приоритету с конца")
+                    DataSource = DataSource.OrderByDescending(x => x.Priority);
             }
 
             IControl.ItemsSource = DataSource.ToList();
@@ -85,6 +84,14 @@ namespace PleasentRustleApp.UserVisualComponents
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Update();
+        }
+
+        private void ExitBut_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBoxes.WarningMessage("Вы точно хотите закрыть приложение?", "Внимание!") == true)
+            {
+                this.Close();
+            }            
         }
     }
 }

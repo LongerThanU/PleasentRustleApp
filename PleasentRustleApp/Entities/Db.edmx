@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LonGerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LonGerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agent">
           <Key>
             <PropertyRef Name="ID" />
@@ -21,6 +21,8 @@
           <Property Name="DirectorName" Type="nvarchar" MaxLength="100" />
           <Property Name="INN" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="KPP" Type="varchar" MaxLength="9" />
+          <Property Name="SellsPerYear" Type="int" />
+          <Property Name="Discount" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AgentPriorityHistory">
           <Key>
@@ -408,32 +410,102 @@
             <End Role="Shop" EntitySet="Shop" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LonGerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LonGerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agent" EntityType="LonGerModel.Agent" />
+          <EntitySet Name="AgentPriorityHistory" EntityType="LonGerModel.AgentPriorityHistory" />
+          <EntitySet Name="AgentType" EntityType="LonGerModel.AgentType" />
+          <EntitySet Name="Material" EntityType="LonGerModel.Material" />
+          <EntitySet Name="MaterialCountHistory" EntityType="LonGerModel.MaterialCountHistory" />
+          <EntitySet Name="MaterialType" EntityType="LonGerModel.MaterialType" />
+          <EntitySet Name="Photo" EntityType="LonGerModel.Photo" />
+          <EntitySet Name="Product" EntityType="LonGerModel.Product" />
+          <EntitySet Name="ProductCostHistory" EntityType="LonGerModel.ProductCostHistory" />
+          <EntitySet Name="ProductMaterial" EntityType="LonGerModel.ProductMaterial" />
+          <EntitySet Name="ProductSale" EntityType="LonGerModel.ProductSale" />
+          <EntitySet Name="ProductType" EntityType="LonGerModel.ProductType" />
+          <EntitySet Name="Shop" EntityType="LonGerModel.Shop" />
+          <EntitySet Name="Supplier" EntityType="LonGerModel.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="LonGerModel.sysdiagrams" />
+          <AssociationSet Name="FK_Agent_AgentType" Association="LonGerModel.FK_Agent_AgentType">
+            <End Role="AgentType" EntitySet="AgentType" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agent_Photo" Association="LonGerModel.FK_Agent_Photo">
+            <End Role="Photo" EntitySet="Photo" />
+            <End Role="Agent" EntitySet="Agent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgentPriorityHistory_Agent" Association="LonGerModel.FK_AgentPriorityHistory_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="AgentPriorityHistory" EntitySet="AgentPriorityHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSale_Agent" Association="LonGerModel.FK_ProductSale_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="ProductSale" EntitySet="ProductSale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Shop_Agent" Association="LonGerModel.FK_Shop_Agent">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Shop" EntitySet="Shop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_MaterialType" Association="LonGerModel.FK_Material_MaterialType">
+            <End Role="MaterialType" EntitySet="MaterialType" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialCountHistory_Material" Association="LonGerModel.FK_MaterialCountHistory_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialCountHistory" EntitySet="MaterialCountHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductMaterial_Material" Association="LonGerModel.FK_ProductMaterial_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductType" Association="LonGerModel.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCostHistory_Product" Association="LonGerModel.FK_ProductCostHistory_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductCostHistory" EntitySet="ProductCostHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductMaterial_Product" Association="LonGerModel.FK_ProductMaterial_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductSale_Product" Association="LonGerModel.FK_ProductSale_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSale" EntitySet="ProductSale" />
+          </AssociationSet>
+          <AssociationSet Name="MaterialSupplier" Association="LonGerModel.MaterialSupplier">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Agent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PhotoId" Type="Int32" />
-          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="AgentTypeID" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Logo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="DirectorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INN" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="KPP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="AgentType" Relationship="Self.FK_Agent_AgentType" FromRole="Agent" ToRole="AgentType" />
-          <NavigationProperty Name="Photo" Relationship="Self.FK_Agent_Photo" FromRole="Agent" ToRole="Photo" />
-          <NavigationProperty Name="AgentPriorityHistory" Relationship="Self.FK_AgentPriorityHistory_Agent" FromRole="Agent" ToRole="AgentPriorityHistory" />
-          <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Agent" FromRole="Agent" ToRole="ProductSale" />
-          <NavigationProperty Name="Shop" Relationship="Self.FK_Shop_Agent" FromRole="Agent" ToRole="Shop" />
+          <Property Name="SellsPerYear" Type="Int32" />
+          <Property Name="Discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AgentType" Relationship="LonGerModel.FK_Agent_AgentType" FromRole="Agent" ToRole="AgentType" />
+          <NavigationProperty Name="Photo" Relationship="LonGerModel.FK_Agent_Photo" FromRole="Agent" ToRole="Photo" />
+          <NavigationProperty Name="AgentPriorityHistory" Relationship="LonGerModel.FK_AgentPriorityHistory_Agent" FromRole="Agent" ToRole="AgentPriorityHistory" />
+          <NavigationProperty Name="ProductSale" Relationship="LonGerModel.FK_ProductSale_Agent" FromRole="Agent" ToRole="ProductSale" />
+          <NavigationProperty Name="Shop" Relationship="LonGerModel.FK_Shop_Agent" FromRole="Agent" ToRole="Shop" />
         </EntityType>
         <EntityType Name="AgentPriorityHistory">
           <Key>
@@ -443,35 +515,35 @@
           <Property Name="AgentID" Type="Int32" Nullable="false" />
           <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PriorityValue" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="Self.FK_AgentPriorityHistory_Agent" FromRole="AgentPriorityHistory" ToRole="Agent" />
+          <NavigationProperty Name="Agent" Relationship="LonGerModel.FK_AgentPriorityHistory_Agent" FromRole="AgentPriorityHistory" ToRole="Agent" />
         </EntityType>
         <EntityType Name="AgentType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Agent" Relationship="Self.FK_Agent_AgentType" FromRole="AgentType" ToRole="Agent" />
+          <NavigationProperty Name="Agent" Relationship="LonGerModel.FK_Agent_AgentType" FromRole="AgentType" ToRole="Agent" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CountInPack" Type="Int32" Nullable="false" />
-          <Property Name="Unit" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Unit" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CountInStock" Type="Double" />
           <Property Name="MinCount" Type="Double" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaterialTypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MaterialType" Relationship="Self.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
-          <NavigationProperty Name="MaterialCountHistory" Relationship="Self.FK_MaterialCountHistory_Material" FromRole="Material" ToRole="MaterialCountHistory" />
-          <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
-          <NavigationProperty Name="Supplier" Relationship="Self.MaterialSupplier" FromRole="Material" ToRole="Supplier" />
+          <NavigationProperty Name="MaterialType" Relationship="LonGerModel.FK_Material_MaterialType" FromRole="Material" ToRole="MaterialType" />
+          <NavigationProperty Name="MaterialCountHistory" Relationship="LonGerModel.FK_MaterialCountHistory_Material" FromRole="Material" ToRole="MaterialCountHistory" />
+          <NavigationProperty Name="ProductMaterial" Relationship="LonGerModel.FK_ProductMaterial_Material" FromRole="Material" ToRole="ProductMaterial" />
+          <NavigationProperty Name="Supplier" Relationship="LonGerModel.MaterialSupplier" FromRole="Material" ToRole="Supplier" />
         </EntityType>
         <EntityType Name="MaterialCountHistory">
           <Key>
@@ -481,42 +553,42 @@
           <Property Name="MaterialID" Type="Int32" Nullable="false" />
           <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CountValue" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialCountHistory_Material" FromRole="MaterialCountHistory" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="LonGerModel.FK_MaterialCountHistory_Material" FromRole="MaterialCountHistory" ToRole="Material" />
         </EntityType>
         <EntityType Name="MaterialType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DefectedPercent" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="LonGerModel.FK_Material_MaterialType" FromRole="MaterialType" ToRole="Material" />
         </EntityType>
         <EntityType Name="Photo">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="Self.FK_Agent_Photo" FromRole="Photo" ToRole="Agent" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Agent" Relationship="LonGerModel.FK_Agent_Photo" FromRole="Photo" ToRole="Agent" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProductTypeID" Type="Int32" />
-          <Property Name="ArticleNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ArticleNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProductionPersonCount" Type="Int32" />
           <Property Name="ProductionWorkshopNumber" Type="Int32" />
-          <Property Name="MinCostForAgent" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
-          <NavigationProperty Name="ProductCostHistory" Relationship="Self.FK_ProductCostHistory_Product" FromRole="Product" ToRole="ProductCostHistory" />
-          <NavigationProperty Name="ProductMaterial" Relationship="Self.FK_ProductMaterial_Product" FromRole="Product" ToRole="ProductMaterial" />
-          <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
+          <Property Name="MinCostForAgent" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="ProductType" Relationship="LonGerModel.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="ProductCostHistory" Relationship="LonGerModel.FK_ProductCostHistory_Product" FromRole="Product" ToRole="ProductCostHistory" />
+          <NavigationProperty Name="ProductMaterial" Relationship="LonGerModel.FK_ProductMaterial_Product" FromRole="Product" ToRole="ProductMaterial" />
+          <NavigationProperty Name="ProductSale" Relationship="LonGerModel.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
         </EntityType>
         <EntityType Name="ProductCostHistory">
           <Key>
@@ -525,8 +597,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CostValue" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductCostHistory_Product" FromRole="ProductCostHistory" ToRole="Product" />
+          <Property Name="CostValue" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Product" Relationship="LonGerModel.FK_ProductCostHistory_Product" FromRole="ProductCostHistory" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductMaterial">
           <Key>
@@ -536,8 +608,8 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="MaterialID" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Double" />
-          <NavigationProperty Name="Material" Relationship="Self.FK_ProductMaterial_Material" FromRole="ProductMaterial" ToRole="Material" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductMaterial_Product" FromRole="ProductMaterial" ToRole="Product" />
+          <NavigationProperty Name="Material" Relationship="LonGerModel.FK_ProductMaterial_Material" FromRole="ProductMaterial" ToRole="Material" />
+          <NavigationProperty Name="Product" Relationship="LonGerModel.FK_ProductMaterial_Product" FromRole="ProductMaterial" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -548,53 +620,53 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="SaleDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ProductCount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="Self.FK_ProductSale_Agent" FromRole="ProductSale" ToRole="Agent" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductSale_Product" FromRole="ProductSale" ToRole="Product" />
+          <NavigationProperty Name="Agent" Relationship="LonGerModel.FK_ProductSale_Agent" FromRole="ProductSale" ToRole="Agent" />
+          <NavigationProperty Name="Product" Relationship="LonGerModel.FK_ProductSale_Product" FromRole="ProductSale" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DefectedPercent" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="LonGerModel.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
         </EntityType>
         <EntityType Name="Shop">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="AgentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="Self.FK_Shop_Agent" FromRole="Shop" ToRole="Agent" />
+          <NavigationProperty Name="Agent" Relationship="LonGerModel.FK_Shop_Agent" FromRole="Shop" ToRole="Agent" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="INN" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="QualityRating" Type="Int32" />
           <Property Name="SupplierType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Material" Relationship="Self.MaterialSupplier" FromRole="Supplier" ToRole="Material" />
+          <NavigationProperty Name="Material" Relationship="LonGerModel.MaterialSupplier" FromRole="Supplier" ToRole="Material" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Agent_AgentType">
-          <End Role="AgentType" Type="Self.AgentType" Multiplicity="1" />
-          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <End Type="LonGerModel.AgentType" Role="AgentType" Multiplicity="1" />
+          <End Type="LonGerModel.Agent" Role="Agent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AgentType">
               <PropertyRef Name="ID" />
@@ -605,8 +677,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Agent_Photo">
-          <End Role="Photo" Type="Self.Photo" Multiplicity="0..1" />
-          <End Role="Agent" Type="Self.Agent" Multiplicity="*" />
+          <End Type="LonGerModel.Photo" Role="Photo" Multiplicity="0..1" />
+          <End Type="LonGerModel.Agent" Role="Agent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Photo">
               <PropertyRef Name="Id" />
@@ -617,8 +689,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AgentPriorityHistory_Agent">
-          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
-          <End Role="AgentPriorityHistory" Type="Self.AgentPriorityHistory" Multiplicity="*" />
+          <End Type="LonGerModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="LonGerModel.AgentPriorityHistory" Role="AgentPriorityHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="ID" />
@@ -629,8 +701,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductSale_Agent">
-          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
-          <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+          <End Type="LonGerModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="LonGerModel.ProductSale" Role="ProductSale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="ID" />
@@ -641,8 +713,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Shop_Agent">
-          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
-          <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+          <End Type="LonGerModel.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="LonGerModel.Shop" Role="Shop" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agent">
               <PropertyRef Name="ID" />
@@ -653,8 +725,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Material_MaterialType">
-          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="1" />
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <End Type="LonGerModel.MaterialType" Role="MaterialType" Multiplicity="1" />
+          <End Type="LonGerModel.Material" Role="Material" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MaterialType">
               <PropertyRef Name="ID" />
@@ -665,8 +737,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MaterialCountHistory_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="MaterialCountHistory" Type="Self.MaterialCountHistory" Multiplicity="*" />
+          <End Type="LonGerModel.Material" Role="Material" Multiplicity="1" />
+          <End Type="LonGerModel.MaterialCountHistory" Role="MaterialCountHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Material">
               <PropertyRef Name="ID" />
@@ -677,8 +749,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductMaterial_Material">
-          <End Role="Material" Type="Self.Material" Multiplicity="1" />
-          <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
+          <End Type="LonGerModel.Material" Role="Material" Multiplicity="1" />
+          <End Type="LonGerModel.ProductMaterial" Role="ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Material">
               <PropertyRef Name="ID" />
@@ -689,8 +761,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_ProductType">
-          <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Type="LonGerModel.ProductType" Role="ProductType" Multiplicity="0..1" />
+          <End Type="LonGerModel.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductType">
               <PropertyRef Name="ID" />
@@ -701,8 +773,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductCostHistory_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductCostHistory" Type="Self.ProductCostHistory" Multiplicity="*" />
+          <End Type="LonGerModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="LonGerModel.ProductCostHistory" Role="ProductCostHistory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -713,8 +785,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductMaterial_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductMaterial" Type="Self.ProductMaterial" Multiplicity="*" />
+          <End Type="LonGerModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="LonGerModel.ProductMaterial" Role="ProductMaterial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -725,8 +797,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductSale_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="ProductSale" Type="Self.ProductSale" Multiplicity="*" />
+          <End Type="LonGerModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="LonGerModel.ProductSale" Role="ProductSale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -737,79 +809,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="MaterialSupplier">
-          <End Role="Material" Type="Self.Material" Multiplicity="*" />
-          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <End Type="LonGerModel.Material" Role="Material" Multiplicity="*" />
+          <End Type="LonGerModel.Supplier" Role="Supplier" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="LonGerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Agent" EntityType="Self.Agent" />
-          <EntitySet Name="AgentPriorityHistory" EntityType="Self.AgentPriorityHistory" />
-          <EntitySet Name="AgentType" EntityType="Self.AgentType" />
-          <EntitySet Name="Material" EntityType="Self.Material" />
-          <EntitySet Name="MaterialCountHistory" EntityType="Self.MaterialCountHistory" />
-          <EntitySet Name="MaterialType" EntityType="Self.MaterialType" />
-          <EntitySet Name="Photo" EntityType="Self.Photo" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
-          <EntitySet Name="ProductCostHistory" EntityType="Self.ProductCostHistory" />
-          <EntitySet Name="ProductMaterial" EntityType="Self.ProductMaterial" />
-          <EntitySet Name="ProductSale" EntityType="Self.ProductSale" />
-          <EntitySet Name="ProductType" EntityType="Self.ProductType" />
-          <EntitySet Name="Shop" EntityType="Self.Shop" />
-          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Agent_AgentType" Association="Self.FK_Agent_AgentType">
-            <End Role="AgentType" EntitySet="AgentType" />
-            <End Role="Agent" EntitySet="Agent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Agent_Photo" Association="Self.FK_Agent_Photo">
-            <End Role="Photo" EntitySet="Photo" />
-            <End Role="Agent" EntitySet="Agent" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AgentPriorityHistory_Agent" Association="Self.FK_AgentPriorityHistory_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="AgentPriorityHistory" EntitySet="AgentPriorityHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductSale_Agent" Association="Self.FK_ProductSale_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="ProductSale" EntitySet="ProductSale" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Shop_Agent" Association="Self.FK_Shop_Agent">
-            <End Role="Agent" EntitySet="Agent" />
-            <End Role="Shop" EntitySet="Shop" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Material_MaterialType" Association="Self.FK_Material_MaterialType">
-            <End Role="MaterialType" EntitySet="MaterialType" />
-            <End Role="Material" EntitySet="Material" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MaterialCountHistory_Material" Association="Self.FK_MaterialCountHistory_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="MaterialCountHistory" EntitySet="MaterialCountHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductMaterial_Material" Association="Self.FK_ProductMaterial_Material">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
-            <End Role="ProductType" EntitySet="ProductType" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductCostHistory_Product" Association="Self.FK_ProductCostHistory_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductCostHistory" EntitySet="ProductCostHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductMaterial_Product" Association="Self.FK_ProductMaterial_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductMaterial" EntitySet="ProductMaterial" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductSale_Product" Association="Self.FK_ProductSale_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="ProductSale" EntitySet="ProductSale" />
-          </AssociationSet>
-          <AssociationSet Name="MaterialSupplier" Association="Self.MaterialSupplier">
-            <End Role="Material" EntitySet="Material" />
-            <End Role="Supplier" EntitySet="Supplier" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -818,176 +821,178 @@
           <EntitySetMapping Name="Agent">
             <EntityTypeMapping TypeName="LonGerModel.Agent">
               <MappingFragment StoreEntitySet="Agent">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="AgentTypeID" ColumnName="AgentTypeID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
-                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="SellsPerYear" ColumnName="SellsPerYear" />
                 <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AgentTypeID" ColumnName="AgentTypeID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentPriorityHistory">
             <EntityTypeMapping TypeName="LonGerModel.AgentPriorityHistory">
               <MappingFragment StoreEntitySet="AgentPriorityHistory">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="PriorityValue" ColumnName="PriorityValue" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AgentType">
             <EntityTypeMapping TypeName="LonGerModel.AgentType">
               <MappingFragment StoreEntitySet="AgentType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Material">
             <EntityTypeMapping TypeName="LonGerModel.Material">
               <MappingFragment StoreEntitySet="Material">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CountInPack" ColumnName="CountInPack" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="CountInStock" ColumnName="CountInStock" />
-                <ScalarProperty Name="MinCount" ColumnName="MinCount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="MaterialTypeID" ColumnName="MaterialTypeID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MinCount" ColumnName="MinCount" />
+                <ScalarProperty Name="CountInStock" ColumnName="CountInStock" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="CountInPack" ColumnName="CountInPack" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialCountHistory">
             <EntityTypeMapping TypeName="LonGerModel.MaterialCountHistory">
               <MappingFragment StoreEntitySet="MaterialCountHistory">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
-                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="CountValue" ColumnName="CountValue" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MaterialType">
             <EntityTypeMapping TypeName="LonGerModel.MaterialType">
               <MappingFragment StoreEntitySet="MaterialType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DefectedPercent" ColumnName="DefectedPercent" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Photo">
             <EntityTypeMapping TypeName="LonGerModel.Photo">
               <MappingFragment StoreEntitySet="Photo">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="LonGerModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
-                <ScalarProperty Name="ArticleNumber" ColumnName="ArticleNumber" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ProductionPersonCount" ColumnName="ProductionPersonCount" />
-                <ScalarProperty Name="ProductionWorkshopNumber" ColumnName="ProductionWorkshopNumber" />
                 <ScalarProperty Name="MinCostForAgent" ColumnName="MinCostForAgent" />
+                <ScalarProperty Name="ProductionWorkshopNumber" ColumnName="ProductionWorkshopNumber" />
+                <ScalarProperty Name="ProductionPersonCount" ColumnName="ProductionPersonCount" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ArticleNumber" ColumnName="ArticleNumber" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductCostHistory">
             <EntityTypeMapping TypeName="LonGerModel.ProductCostHistory">
               <MappingFragment StoreEntitySet="ProductCostHistory">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
                 <ScalarProperty Name="CostValue" ColumnName="CostValue" />
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductMaterial">
             <EntityTypeMapping TypeName="LonGerModel.ProductMaterial">
               <MappingFragment StoreEntitySet="ProductMaterial">
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductSale">
             <EntityTypeMapping TypeName="LonGerModel.ProductSale">
               <MappingFragment StoreEntitySet="ProductSale">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
                 <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductType">
             <EntityTypeMapping TypeName="LonGerModel.ProductType">
               <MappingFragment StoreEntitySet="ProductType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DefectedPercent" ColumnName="DefectedPercent" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Shop">
             <EntityTypeMapping TypeName="LonGerModel.Shop">
               <MappingFragment StoreEntitySet="Shop">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Supplier">
             <EntityTypeMapping TypeName="LonGerModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="INN" ColumnName="INN" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="QualityRating" ColumnName="QualityRating" />
                 <ScalarProperty Name="SupplierType" ColumnName="SupplierType" />
+                <ScalarProperty Name="QualityRating" ColumnName="QualityRating" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="LonGerModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="MaterialSupplier" TypeName="LonGerModel.MaterialSupplier" StoreEntitySet="MaterialSupplier">
-            <EndProperty Name="Material">
-              <ScalarProperty Name="ID" ColumnName="MaterialID" />
-            </EndProperty>
             <EndProperty Name="Supplier">
               <ScalarProperty Name="ID" ColumnName="SupplierID" />
+            </EndProperty>
+            <EndProperty Name="Material">
+              <ScalarProperty Name="ID" ColumnName="MaterialID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

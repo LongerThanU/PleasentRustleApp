@@ -34,6 +34,8 @@ namespace PleasentRustleApp.Entities
         public string DirectorName { get; set; }
         public string INN { get; set; }
         public string KPP { get; set; }
+        public Nullable<int> SellsPerYear { get; set; }
+        public string Discount { get; set; }
     
         public virtual AgentType AgentType { get; set; }
         public virtual Photo Photo { get; set; }
