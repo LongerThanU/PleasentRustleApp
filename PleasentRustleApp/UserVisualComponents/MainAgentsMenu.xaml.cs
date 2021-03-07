@@ -88,7 +88,6 @@ namespace PleasentRustleApp.UserVisualComponents
                     DataSource = DataSource.OrderByDescending(x => x.Priority);
             }
 
-
             if(AgentTypeBox.SelectedItem != null)
             {
                 string AgentTypeSource = AgentTypeBox.SelectedItem.ToString();
@@ -134,6 +133,12 @@ namespace PleasentRustleApp.UserVisualComponents
         private void AgentTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Update();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AgentAddWindow Win = new AgentAddWindow();
+            Win.ShowDialog();
         }
     }
 }

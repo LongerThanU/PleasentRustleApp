@@ -69,6 +69,9 @@
     </ApplicationDefinition>
     <Compile Include="Classes\DbClass.cs" />
     <Compile Include="Classes\MessageBoxes.cs" />
+    <Compile Include="Windows\AgentAddWindow.xaml.cs">
+      <DependentUpon>AgentAddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AgentChangeWindow.xaml.cs">
       <DependentUpon>AgentChangeWindow.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
     <Compile Include="Entities\sysdiagrams.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
+    <Page Include="Windows\AgentAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AgentChangeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

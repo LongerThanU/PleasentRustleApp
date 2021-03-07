@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PleasentRustleApp"
         mc:Ignorable="d"
-        Title="Приятный шелест" FontFamily="Monotype Corsiva" FontSize="16" MinHeight="585" MinWidth="760"
-        Height="585" Width="760">
+        Title="Приятный шелест" FontFamily="Monotype Corsiva" FontSize="16" MinHeight="585" MinWidth="900"
+        Height="585" Width="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="65"/>
@@ -26,15 +26,15 @@
         <DockPanel Margin="10" Grid.Row="1">
             
             <TextBox x:Name="SearchBox" VerticalAlignment="Center" TextChanged="SearchBox_TextChanged" 
-                         Width="238" Height="30" DockPanel.Dock="Left"/>
-            
+                         Width="238" Height="30" DockPanel.Dock="Left"/>            
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="10,0,0,0">
                 <TextBlock Text="Фильтр:" VerticalAlignment="Center"/>
-                <ComboBox Name="SortBox" Width="128" Height="30" Margin="10,0,10,0" 
+                <ComboBox Name="SortBox" Width="128" Height="30" Margin="0,0,10,0" 
                       SelectionChanged="ComboBox_SelectionChanged" SelectedItem="{Binding SelectedFilter}"/>
                 <TextBlock Text="Сортировка по типу:" VerticalAlignment="Center"/>
                 <ComboBox Name="AgentTypeBox" VerticalAlignment="Center" Width="128" Height="30" Margin="2,0,0,0"
                           SelectedItem="{Binding SelectedAgentTypeFilter}" ItemsSource="{Binding AgentType}" SelectionChanged="AgentTypeBox_SelectionChanged"/>
+                <Button Content="Добавить агента" Width="120" Height="30" Margin="28,0,0,0" Background="#46B29D" Foreground="White" Click="Button_Click"/>
             </StackPanel>
             
         </DockPanel>
@@ -53,7 +53,7 @@
                                 <Border BorderBrush="#46B29D" 
                                 BorderThickness="2">
                                     <StackPanel Orientation="Horizontal">
-                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="400">
+                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Width="500">
                                             <Image Source="{Binding Photo.Image}"
                                        Height="100"
                                        Width="100"
