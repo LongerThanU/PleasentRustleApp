@@ -9,7 +9,7 @@ namespace PleasentRustleApp.Classes
 {
     class MessageBoxes
     {
-        public static bool WarningMessage(string body, string title)
+        public static bool QuestionMessage(string body, string title)
         {
             if (MessageBox.Show(body, title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -24,7 +24,7 @@ namespace PleasentRustleApp.Classes
 
         public static bool ExceptionMessage(string body, string title)
         {
-            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.Yes)
+            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
             {
                 return true;
             }
@@ -32,12 +32,11 @@ namespace PleasentRustleApp.Classes
             {
                 return false;
             }
-
         }
 
         public static bool InfoMessage(string body, string title)
         {
-            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)
             {
                 return true;
             }
@@ -45,6 +44,17 @@ namespace PleasentRustleApp.Classes
             {
                 return false;
             }
-        }        
+        }
+        public static bool WarningMessage(string body, string title)
+        {
+            if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

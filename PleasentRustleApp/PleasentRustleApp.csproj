@@ -69,6 +69,9 @@
     </ApplicationDefinition>
     <Compile Include="Classes\DbClass.cs" />
     <Compile Include="Classes\MessageBoxes.cs" />
+    <Compile Include="Windows\AgentChangeWindow.xaml.cs">
+      <DependentUpon>AgentChangeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Agent.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
     <Compile Include="Entities\sysdiagrams.cs">
       <DependentUpon>Db.tt</DependentUpon>
     </Compile>
+    <Page Include="Windows\AgentChangeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserVisualComponents\MainAgentsMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,8 +200,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

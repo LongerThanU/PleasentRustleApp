@@ -1,5 +1,6 @@
 ﻿using PleasentRustleApp.Classes;
 using PleasentRustleApp.Entities;
+using PleasentRustleApp.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,11 @@ namespace PleasentRustleApp.UserVisualComponents
     public partial class MainAgentsMenu : Window
     {
         public string SelectedFilter { get; set; } = "Без фильтра";
+        public string SelectedAgentTypeFilter { get; set; } = "Все типы";
 
         public List<string> Filters = new List<string>
         {
-            "Без сортировки",
+            "Без фильтра",
             "Имя агента по алфавиту",
             "Имя агента по алфавиту с конца",
             "Тип агента по алфавиту",
@@ -34,6 +36,17 @@ namespace PleasentRustleApp.UserVisualComponents
             "По приоритету с начала",
             "По приоритету с конца"
         };
+
+        public List<string> AgentType 
+        {
+            get
+            {
+                DbClass.DbConnection(out LonGerEntities db);
+                var AgentType = db.AgentType.Select(x => x.Title).Distinct().ToList();
+                AgentType.Insert(0, "Все типы");
+                return AgentType;
+            }
+        }
 
         public MainAgentsMenu()
         {
@@ -50,7 +63,9 @@ namespace PleasentRustleApp.UserVisualComponents
             var DataSource = SearchSource == "" ? db.Agent : db.Agent.Where(x => x.Title.StartsWith(SearchSource));
 
             if (DataSource.Count() == 0)
-                SearchNoResults.Visibility = Visibility.Visible;           
+                SearchNoResults.Visibility = Visibility.Visible;
+            else 
+                SearchNoResults.Visibility = Visibility.Collapsed;
 
             if (SortBox.SelectedItem != null)
             {
@@ -73,6 +88,17 @@ namespace PleasentRustleApp.UserVisualComponents
                     DataSource = DataSource.OrderByDescending(x => x.Priority);
             }
 
+
+            if(AgentTypeBox.SelectedItem != null)
+            {
+                string AgentTypeSource = AgentTypeBox.SelectedItem.ToString();
+
+                if (AgentTypeBox.SelectedItem.ToString() != "Все типы")
+                {
+                    DataSource = DataSource.Where(x => x.AgentType.Title == AgentTypeSource);
+                }
+            }            
+
             IControl.ItemsSource = DataSource.ToList();
         }
 
@@ -88,10 +114,26 @@ namespace PleasentRustleApp.UserVisualComponents
 
         private void ExitBut_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxes.WarningMessage("Вы точно хотите закрыть приложение?", "Внимание!") == true)
+            if (MessageBoxes.QuestionMessage("Вы точно хотите закрыть приложение?", "Внимание!") == true)
             {
                 this.Close();
             }            
+        }
+
+        private void ChangeWinOpenBut_Click(object sender, RoutedEventArgs e)
+        {
+            AgentChangeWindow Win = new AgentChangeWindow();
+            Win.ShowDialog();
+        }
+
+        private void DeleteAgentBut_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxes.QuestionMessage("Вы точно хотите удалить агента?", "Внимание!");
+        }
+
+        private void AgentTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Update();
         }
     }
 }
