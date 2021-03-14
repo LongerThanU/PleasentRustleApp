@@ -30,7 +30,7 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel HorizontalAlignment="Left" Margin="20,0,0,0">
                     <Image Source="/Resources/Приятный шелест.png"
-                           Width="100" Height="100"/>
+                           Width="100" Height="100" Name="AgentAddPhoto"/>
                     <Button Content=""/>
                 </StackPanel>
                 <StackPanel Width="250" HorizontalAlignment="Right" Margin="0,0,40,0"
