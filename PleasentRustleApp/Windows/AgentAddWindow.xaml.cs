@@ -1,4 +1,6 @@
-﻿using PleasentRustleApp.Classes;
+﻿using Microsoft.Win32;
+using PleasentRustleApp.Classes;
+using PleasentRustleApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +34,29 @@ namespace PleasentRustleApp.Windows
             {
                 Close();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog OPF = new OpenFileDialog();
+            OPF.Filter = "Файлы PNG|*.png";
+            if(OPF.ShowDialog() == true)
+            {
+                ImageSourceConverter imgs = new ImageSourceConverter();
+                AgentAddPhoto.SetValue(Image.SourceProperty, imgs.ConvertFromString(OPF.FileName));
+            }
+        }
+
+        private void AddNewAgentBut_Click(object sender, RoutedEventArgs e)
+        {
+            DbClass.DbConnection(out LonGerEntities db);
+            Agent agent = new Agent
+            {
+                Title = TitleBox.Text,
+                Ag
+
+            };
+            db.Agent.Add(agent);
         }
     }
 }
