@@ -42,21 +42,22 @@
                     <TextBlock Text="Наименование" Margin="5,0,5,0"/>
                     <TextBox x:Name="TitleBox" Margin="5"/>
                     <TextBlock Text="Тип агента" Margin="5,0,5,0"/>
-                    <ComboBox x:Name="" Width="70" Margin="5" HorizontalAlignment="Left"/>
+                    <ComboBox x:Name="AgentTypeBox" Width="70" Margin="5" HorizontalAlignment="Left"
+                              DisplayMemberPath="Title"/>
                     <TextBlock Text="Приоритет" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="PriorityBox" Margin="5"/>
                     <TextBlock Text="Адрес" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="AdressBox" Margin="5"/>
                     <TextBlock Text="ИНН" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="INNBox" Margin="5"/>
                     <TextBlock Text="КПП" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="KPPBox" Margin="5"/>
                     <TextBlock Text="Имя директора" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="DirectorBox" Margin="5"/>
                     <TextBlock Text="Телефон" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="PhoneBox" Margin="5"/>
                     <TextBlock Text="Email компании" Margin="5,0,5,0"/>
-                    <TextBox Margin="5"/>
+                    <TextBox x:Name="EmailBox" Margin="5"/>
                     <Button Margin="0,20,5,20" Height="30" HorizontalAlignment="Right"
                         Width="100" x:Name="AddNewAgentBut" Click="AddNewAgentBut_Click"/>
                 </StackPanel>

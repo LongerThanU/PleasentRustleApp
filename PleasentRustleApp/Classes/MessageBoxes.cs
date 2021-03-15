@@ -18,10 +18,8 @@ namespace PleasentRustleApp.Classes
             else
             {
                 return false;
-            }
-           
+            }           
         }
-
         public static bool ExceptionMessage(string body, string title)
         {
             if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK)
@@ -33,7 +31,6 @@ namespace PleasentRustleApp.Classes
                 return false;
             }
         }
-
         public static bool InfoMessage(string body, string title)
         {
             if (MessageBox.Show(body, title, MessageBoxButton.OK, MessageBoxImage.Information) == MessageBoxResult.OK)

@@ -23,9 +23,14 @@ namespace PleasentRustleApp.Windows
     /// </summary>
     public partial class AgentAddWindow : Window
     {
+        public Agent Agent { get; set; }
         public AgentAddWindow()
-        {
-            InitializeComponent();            
+        {            
+            InitializeComponent();
+            DbClass.DbConnection(out LonGerEntities db);
+            AgentTypeBox.ItemsSource = db.AgentType.ToList();
+            AgentTypeBox.SelectedIndex = 0;
+            DataContext = Agent;
         }
 
         private void ExitBut_Click(object sender, RoutedEventArgs e)
@@ -39,7 +44,7 @@ namespace PleasentRustleApp.Windows
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog OPF = new OpenFileDialog();
-            OPF.Filter = "Файлы PNG|*.png";
+            OPF.Filter = "Файлы PNG|*.png|Файлы JPEG|*.jpeg|Файлы JPG|*.jpg";
             if(OPF.ShowDialog() == true)
             {
                 ImageSourceConverter imgs = new ImageSourceConverter();
@@ -49,14 +54,22 @@ namespace PleasentRustleApp.Windows
 
         private void AddNewAgentBut_Click(object sender, RoutedEventArgs e)
         {
-            DbClass.DbConnection(out LonGerEntities db);
-            Agent agent = new Agent
-            {
-                Title = TitleBox.Text,
-                Ag
+            //int Priority = 0;
+            //try
+            //{
+            //    Priority = int.Parse(PriorityBox.Text);
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBoxes.ExceptionMessage("Внимание!", "В окне \"Приоритет\" могут быть записаны только цифры");
+            //}
 
-            };
-            db.Agent.Add(agent);
+            //DbClass.DbConnection(out LonGerEntities db);
+            //Agent.Title = TitleBox.Text;
+            //Agent.AgentType.Title = AgentTypeBox.Text;
+            //Agent.Priority = Priority;
+            //Agent.Address = AdressBox.Text;
+            //db.Agent.Add(Agent);
         }
     }
 }
